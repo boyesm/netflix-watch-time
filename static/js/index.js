@@ -14,7 +14,7 @@ let stats = {
     "year_labels": [],
     // "time_watched_per_month": [[0]],
     "time_watched_of_each_show": {}, // {"Media Name": 0 (time watched)}
-    
+
 
 };
 
@@ -113,10 +113,10 @@ function minutesToString(minutes) {
 
 function createYearLabels(last_year) {
     let years = []
-    
+
     const cur_year = new Date().getFullYear()
 
-    for (let i = 0; i < cur_year-last_year; i++) {
+    for (let i = 0; i < cur_year - last_year; i++) {
         years.push(cur_year - i);
     }
 
@@ -126,7 +126,7 @@ function createYearLabels(last_year) {
 function createStats() {
     // time watched string
     minutesToString(stats["total_time_watched_min"]);
-    
+
     // Time Watched per Year
     stats["year_labels"] = createYearLabels(2010);
 
@@ -142,7 +142,7 @@ function processData(watch_data_json) {
     for (let i = 0; i < watch_data_json.length; i++) {
         let title = watch_data_json[i]["Title"].split(": ")[0];
 
-        if(title[0] == "\"" && title[title.length-1] == "\""){
+        if (title[0] == "\"" && title[title.length - 1] == "\"") {
             title = title.substring(1, -1)
         }
 
@@ -216,21 +216,21 @@ function processData(watch_data_json) {
                 stats["total_time_watched_min"] += m["runtime"];
 
                 // time spent watching each movie/tv show
-                if(m["title"] in stats["time_watched_of_each_show"]){
+                if (m["title"] in stats["time_watched_of_each_show"]) {
                     stats["time_watched_of_each_show"][m["title"]] += m["runtime"];
                 } else {
                     stats["time_watched_of_each_show"][m["title"]] = m["runtime"];
                 }
 
                 // first media watched
-                if (i == watch_data_json.length-1){
+                if (i == watch_data_json.length - 1) {
                     stats["first_show_watched"] = title;
                     stats["first_day_watched"] = date;
                 }
 
                 // time watched each year               
-                
-                if((cur_year - parseInt(date.getFullYear())) > stats["time_watched_per_year"].length){
+
+                if ((cur_year - parseInt(date.getFullYear())) > stats["time_watched_per_year"].length) {
                     console.log(stats["time_watched_per_year"])
                     stats["time_watched_per_year"].push(m["runtime"])
                 } else {
@@ -256,7 +256,7 @@ function processData(watch_data_json) {
         .then(createStats())
         .then(createCookies()) /// create cookies
         .then(console.log(stats))
-    // .then(window.location.href = "data.html") // redirect!!! to data page
+        .then(window.location.href = "data.html") // redirect!!! to data page
 }
 
 
