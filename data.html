@@ -15,7 +15,7 @@
   </div>
 
   <div class="container">
-    <div class="row">
+    <!-- <div class="row">
       <div class="col">
         <div class="chart-container" style="position: relative">
           <canvas id="myChart" width="1px" height="1px"></canvas>
@@ -26,78 +26,140 @@
           <canvas id="myChart1" width="1px" height="1px"></canvas>
         </div>
       </div>
-    </div>
+    </div> -->
 
-    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.3/dist/Chart.min.js"></script>
-    <script>
-      function makeGraph(chart_id, type, data, graph_label, data_label) {
-        var ctx = document.getElementById(chart_id).getContext('2d');
-        var myChart = new Chart(ctx, {
-          type: type,
-          data: {
-            labels: data_label,
-            datasets: [{
-              label: graph_label,
-              data: data,
-              backgroundColor: [
-                'rgba(255, 99, 132, 0.2)',
-                'rgba(54, 162, 235, 0.2)',
-                'rgba(255, 206, 86, 0.2)',
-                'rgba(75, 192, 192, 0.2)',
-                'rgba(153, 102, 255, 0.2)',
-                'rgba(255, 159, 64, 0.2)',
-                'rgba(255, 99, 132, 0.2)',
-                'rgba(54, 162, 235, 0.2)',
-                'rgba(255, 206, 86, 0.2)',
-                'rgba(75, 192, 192, 0.2)',
-                'rgba(153, 102, 255, 0.2)',
-                'rgba(255, 159, 64, 0.2)',
-              ],
-              borderColor: [
-                'rgba(255, 99, 132, 1)',
-                'rgba(54, 162, 235, 1)',
-                'rgba(255, 206, 86, 1)',
-                'rgba(75, 192, 192, 1)',
-                'rgba(153, 102, 255, 1)',
-                'rgba(255, 159, 64, 1)',
-                'rgba(255, 99, 132, 1)',
-                'rgba(54, 162, 235, 1)',
-                'rgba(255, 206, 86, 1)',
-                'rgba(75, 192, 192, 1)',
-                'rgba(153, 102, 255, 1)',
-                'rgba(255, 159, 64, 1)',
-              ],
-              borderWidth: 1
-            }]
-          },
-          options: {
-            scales: {
-              yAxes: [{
-                ticks: {
-                  beginAtZero: true
-                }
-              }]
-            }
-          }
-        });
-      }
-      makeGraph('myChart', 'bar', [985, 18744, 12989, 14171, 10860, 1375, 2394, 22], "minutes watched", ['2020', '2019', '2018', '2017', '2016', '2015', '2014', '2013'])
-    </script>
-    
+  <h1>Heading 1</h1>
+  <div class="row mt-5 mb-5">
+    <div class="col mb-2">
+      <div class="card" style="width: 18rem;">
+        <div class="card-body">
+          <h5 class="card-title">Stat 1</h5>
+          <p class="card-text" id="stat1"></p>
+        </div>
+      </div>
+    </div>
+    <div class="col mb-2">
+      <div class="card" style="width: 18rem;">
+        <div class="card-body">
+          <h5 class="card-title">Stat 2</h5>
+          <p class="card-text">{{ 3months_watch_time_stat }}</p>
+        </div>
+      </div>
+    </div>
+    <div class="col mb-2">
+      <div class="card" style="width: 18rem;">
+        <div class="card-body">
+          <h5 class="card-title">Stat 3</h5>
+          <p class="card-text">{{ lastyear_watch_time_stat }}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- <div class="row mt-5 mb-5">
+    <div class="col">
+      <center>
+        <h3>Time Watched per Year</h3>
+      </center>
+      <div class="chart-container" style="position: relative">
+        <canvas id="myChart" width="1px" height="1px"></canvas>
+      </div>
+    </div>
+    <div class="col">
+      <center>
+        <h3>Time Watched per Month</h3>
+      </center>
+      <div class="chart-container" style="position: relative">
+        <canvas id="myChart1" width="1px" height="1px"></canvas>
+      </div>
+    </div>
+  </div> -->
+
+  <!-- <h1>Netflix Favourites</h1>
+<div class="row mt-5 mb-5">
+  <div class="col">
+    <div class="card" style="width: 18rem;">
+      <img src="..." class="card-img-top" alt="...">
+      <div class="card-body">
+        <h5 class="card-title">First Time Watched</h5>
+        <p class="card-text">{{ first_time_watched_stat }}</p>
+      </div>
+    </div>
+  </div>
+  <div class="col">
+    <div class="card" style="width: 18rem;">
+      <img src="..." class="card-img-top" alt="...">
+      <div class="card-body">
+        <h5 class="card-title">Fastest Time to Finish a TV Series</h5>
+        <p class="card-text">{{ first_time_watched_stat }}</p>
+      </div>
+    </div>
+  </div>
+  <div class="col">
+    <div class="card" style="width: 18rem;">
+      <img src="..." class="card-img-top" alt="...">
+      <div class="card-body">
+        <h5 class="card-title">Most Watched TV Show</h5>
+        <p class="card-text">{{ most_watched_tv_stat }}</p>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="row mt-5 mb-5">
+  <div class="col">
+    <div class="card" style="width: 18rem;">
+      <img src="..." class="card-img-top" alt="...">
+      <div class="card-body">
+        <h5 class="card-title">Most Watched Actor</h5>
+        <p class="card-text">{{ most_watched_actor_stat }}</p>
+      </div>
+    </div>
+  </div>
+  <div class="col">
+    <div class="card" style="width: 18rem;">
+      <img src="..." class="card-img-top" alt="...">
+      <div class="card-body">
+        <h5 class="card-title">Most Watched Director</h5>
+        <p class="card-text">{{ most_watched_director_stat }}</p>
+      </div>
+    </div>
+  </div>
+  <div class="col">
+    <div class="card" style="width: 18rem;">
+      <img src="..." class="card-img-top" alt="...">
+      <div class="card-body">
+        <h5 class="card-title">Most Watched TV Show</h5>
+        <p class="card-text">78 Hours</p>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="row mt-5 mb-5">
+  <div class="col">
+    <center>
+      <h3>Most Watched Films</h3>
+    </center>
+    <div class="chart-container" style="position: relative">
+      <canvas id="myChart" width="1px" height="1px"></canvas>
+    </div>
+  </div>
+  <div class="col">
+    <center>
+      <h3>Most Watched TV</h3>
+    </center>
+    <div class="chart-container" style="position: relative">
+      <canvas id="myChart1" width="1px" height="1px"></canvas>
+    </div>
+  </div>
+</div> -->
+
+
   </div>
   <nav class="navbar sticky-bottom bg-light">
     <a class="navbar-brand" href="#">Fixed bottom</a>
   </nav>
 
-  <!-- <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
-    integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
-    crossorigin="anonymous"></script>
-  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
-    integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
-    crossorigin="anonymous"></script>
-  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"
-    integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI"
-    crossorigin="anonymous"></script> -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.3/dist/Chart.min.js"></script>
+  <script src="static/js/data.js"></script>
 </body>
 
 </html>
