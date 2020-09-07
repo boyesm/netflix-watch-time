@@ -7,10 +7,15 @@ let stats = {
     "number_of_movies_watched": 0,
     "number_of_tvepisodes_watched": 0,
     "total_time_watched_min": 0,
+    "total_time_watched_string": "",
     "first_day_watched": 0,
     "first_show_watched": "",
     "time_watched_per_year": [0],
-    "time_watched_per_month": [[0]],
+    "year_labels": [],
+    // "time_watched_per_month": [[0]],
+    "time_watched_of_each_show": {}, // {"Media Name": 0 (time watched)}
+    
+
 };
 
 
@@ -68,6 +73,14 @@ function createCookies() {
     setCookie("stats", JSON.stringify(stats), 100);
 }
 
+// dates
+
+function toDateObj(dateString) {
+    let parts = dateString.split('-');
+    return new Date(parts[0], parts[1] - 1, parts[2]);
+}
+
+
 //create button
 
 // function createButton() {
@@ -89,23 +102,60 @@ function createCookies() {
 //     document.getElementById("next-button").appendChild(nextLink);
 // }
 
+function minutesToString(minutes) {
+    const seconds = minutes * 60;
+    var numyears = Math.floor(seconds / 31536000);
+    var numdays = Math.floor((seconds % 31536000) / 86400);
+    var numhours = Math.floor(((seconds % 31536000) % 86400) / 3600);
+    var numminutes = Math.floor((((seconds % 31536000) % 86400) % 3600) / 60);
+    return numyears + " years " + numdays + " days " + numhours + " hours " + numminutes + " minutes";
+}
 
+function createYearLabels(last_year) {
+    let years = []
+    
+    const cur_year = new Date().getFullYear()
+
+    for (let i = 0; i < cur_year-last_year; i++) {
+        years.push(cur_year - i);
+    }
+
+    return years;
+}
+
+function createStats() {
+    // time watched string
+    minutesToString(stats["total_time_watched_min"]);
+    
+    // Time Watched per Year
+    stats["year_labels"] = createYearLabels(2010);
+
+}
 
 function processData(watch_data_json) {
     /////// setup loop to read all data lines
 
     let allFetchReq = [];
 
+    const cur_year = new Date().getFullYear()
+
     for (let i = 0; i < watch_data_json.length; i++) {
         let title = watch_data_json[i]["Title"].split(": ")[0];
-        let date = watch_data_json[i]["Date"];
+
+        if(title[0] == "\"" && title[title.length-1] == "\""){
+            title = title.substring(1, -1)
+        }
+
+
+        let date = toDateObj(watch_data_json[i]["Date"]);
 
         let m = {
-            "title": watch_data_json[i]["Title"].split(": ")[0],
+            "title": title,
             "id": 0,
             "release_date": "",
             "media_type": "",
-            "runtime": 0
+            "runtime": 0,
+            "cover": "",
         }
 
         /////// send an async http request to tmdb for data on movie/show
@@ -114,7 +164,7 @@ function processData(watch_data_json) {
             .then(response => response.json())
             .then(response_json => {
 
-                console.log(response_json);
+                // console.log(response_json);
 
                 // get id and media type
                 m["id"] = response_json["results"][0]["id"];
@@ -132,7 +182,7 @@ function processData(watch_data_json) {
             })
             .then(response1 => response1.json())
             .then(response_json1 => {
-                console.log(response_json1);
+                // console.log(response_json1);
                 if (m["media_type"] == "tv") {
                     try {
                         m["runtime"] = response_json1["episode_run_time"][0];
@@ -152,8 +202,6 @@ function processData(watch_data_json) {
             })
             .then(() => { // process stats
 
-                ///// quantity
-
                 // titles watched
                 stats["number_of_titles_watched"] += 1;
 
@@ -164,23 +212,30 @@ function processData(watch_data_json) {
                     stats["number_of_tvepisodes_watched"] += 1;
                 }
 
-
-                ///// time
-
-                // total time watched
+                // total time watched (minutes)
                 stats["total_time_watched_min"] += m["runtime"];
 
                 // time spent watching each movie/tv show
-
-                // time spent watching movies
-
-                // time spent watching tv shows
+                if(m["title"] in stats["time_watched_of_each_show"]){
+                    stats["time_watched_of_each_show"][m["title"]] += m["runtime"];
+                } else {
+                    stats["time_watched_of_each_show"][m["title"]] = m["runtime"];
+                }
 
                 // first media watched
+                if (i == watch_data_json.length-1){
+                    stats["first_show_watched"] = title;
+                    stats["first_day_watched"] = date;
+                }
 
-                // most netflix watched in one day
-
-                // how long have you been watching netflic for
+                // time watched each year               
+                
+                if((cur_year - parseInt(date.getFullYear())) > stats["time_watched_per_year"].length){
+                    console.log(stats["time_watched_per_year"])
+                    stats["time_watched_per_year"].push(m["runtime"])
+                } else {
+                    stats["time_watched_per_year"][(cur_year - parseInt(date.getFullYear()))] += m["runtime"];
+                }
 
 
 
@@ -198,7 +253,8 @@ function processData(watch_data_json) {
 
     Promise.allSettled(allFetchReq)
         .then(console.log("ALL FETCH REQS HAVE CONCLUDED!!!"))
-        // .then(createCookies()) /// create cookies
+        .then(createStats())
+        .then(createCookies()) /// create cookies
         .then(console.log(stats))
     // .then(window.location.href = "data.html") // redirect!!! to data page
 }
