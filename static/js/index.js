@@ -12,10 +12,8 @@ let stats = {
     "first_show_watched": "",
     "time_watched_per_year": [0],
     "year_labels": [],
-    // "time_watched_per_month": [[0]],
     "time_watched_of_each_show": {}, // {"Media Name": 0 (time watched)}
-
-
+    "most_watched": [], //[{"title": "breaking bad", "time": 12h, "img": "https:///imglink"}, ...]
 };
 
 
@@ -130,6 +128,10 @@ function createStats() {
     // Time Watched per Year
     stats["year_labels"] = createYearLabels(2010);
 
+    // console.log(stats);
+    // console.log(stats["number_of_movies_watched"]);
+    // console.log(stats["total_time_watched_min"]);
+
 }
 
 function processData(watch_data_json) {
@@ -158,9 +160,11 @@ function processData(watch_data_json) {
             "cover": "",
         }
 
+        allFetchReq.push(0)
+
         /////// send an async http request to tmdb for data on movie/show
         console.log("sending request")
-        let newFetchReq = fetch(`https://api.themoviedb.org/3/search/multi?api_key=${tmdb_api_key}&language=en-US&query=${title}&page=1&include_adult=false`)
+        fetch(`https://api.themoviedb.org/3/search/multi?api_key=${tmdb_api_key}&language=en-US&query=${title}&page=1&include_adult=false`)
             .then(response => response.json())
             .then(response_json => {
 
@@ -231,7 +235,7 @@ function processData(watch_data_json) {
                 // time watched each year               
 
                 if ((cur_year - parseInt(date.getFullYear())) > stats["time_watched_per_year"].length) {
-                    console.log(stats["time_watched_per_year"])
+                    // console.log(stats["time_watched_per_year"])
                     stats["time_watched_per_year"].push(m["runtime"])
                 } else {
                     stats["time_watched_per_year"][(cur_year - parseInt(date.getFullYear()))] += m["runtime"];
@@ -239,27 +243,40 @@ function processData(watch_data_json) {
 
 
 
-
-                // console.log(m)
+                allFetchReq[i] = 1;
+                console.log(m)
             })
 
             .catch((error) => {
+                allFetchReq[i] = 1;
                 console.log(error);
             });
 
-        allFetchReq.push(newFetchReq);
-
     }
 
-    Promise.allSettled(allFetchReq)
-        .then(console.log("ALL FETCH REQS HAVE CONCLUDED!!!"))
-        .then(createStats())
-        .then(createCookies()) /// create cookies
-        .then(console.log(stats))
+    function completedFetch() {
+        console.log("ALL FETCH REQS HAVE CONCLUDED!!!")
 
+        // console.log(stats)
 
+        createStats()
+        createCookies() /// create cookies
 
-        // .then(window.location.href = "data.html") // redirect!!! to data page
+        window.location.href = "data.html" // redirect!!! to data page
+    }
+
+    function checkIfDone() {
+        let a = allFetchReq.every(freq => { return freq === 1 });
+        if (a) {
+            clearInterval(req);
+            completedFetch();
+        }
+        return;
+    }
+
+    console.log("GOT HERE")
+
+    let req = setInterval(checkIfDone, 100)
 }
 
 

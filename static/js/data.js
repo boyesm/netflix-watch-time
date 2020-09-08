@@ -71,10 +71,12 @@ const stats = JSON.parse(getCookie("stats"));
 document.getElementById("total_time_watched").innerHTML = stats["total_time_watched_string"];
 
 // Time Watched per Year graph
-
 makeGraph("time_watched_per_year_graph", "bar", stats["time_watched_per_year"], "Time Watched Per year", stats["year_labels"])
 
+// Titles watched
+document.getElementById("number_of_titles_watched").innerHTML = stats["number_of_titles_watched"];
+document.getElementById("number_of_movies_watched").innerHTML = stats["number_of_movies_watched"];
+document.getElementById("number_of_tvepisodes_watched").innerHTML = stats["number_of_tvepisodes_watched"];
 
-// makeGraph('myChart', 'bar', [985, 18744, 12989, 14171, 10860, 1375, 2394, 22], "minutes watched", ['2020', '2019', '2018', '2017', '2016', '2015', '2014', '2013'])
-
+// Most Watched
 
