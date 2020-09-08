@@ -256,7 +256,10 @@ function processData(watch_data_json) {
         .then(createStats())
         .then(createCookies()) /// create cookies
         .then(console.log(stats))
-        .then(window.location.href = "data.html") // redirect!!! to data page
+
+
+
+        // .then(window.location.href = "data.html") // redirect!!! to data page
 }
 
 
