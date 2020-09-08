@@ -123,7 +123,7 @@ function createYearLabels(last_year) {
 
 function createStats() {
     // time watched string
-    minutesToString(stats["total_time_watched_min"]);
+    stats["total_time_watched_string"] = minutesToString(stats["total_time_watched_min"]);
 
     // Time Watched per Year
     stats["year_labels"] = createYearLabels(2010);
