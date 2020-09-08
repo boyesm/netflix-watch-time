@@ -83,9 +83,23 @@ document.getElementById("number_of_tvepisodes_watched").innerHTML = stats["numbe
 document.getElementById("most_watched_img_1").innerHTML = stats["most_watched"][0]["img"];
 document.getElementById("most_watched_title_1").innerHTML = stats["most_watched"][0]["title"];
 document.getElementById("most_watched_time_1").innerHTML = stats["most_watched"][0]["time"];
-document.getElementById("most_watched_img_1").innerHTML = stats["most_watched"][1]["img"];
-document.getElementById("most_watched_title_1").innerHTML = stats["most_watched"][1]["title"];
-document.getElementById("most_watched_time_1").innerHTML = stats["most_watched"][1]["time"];
-document.getElementById("most_watched_img_1").innerHTML = stats["most_watched"][2]["img"];
-document.getElementById("most_watched_title_1").innerHTML = stats["most_watched"][2]["title"];
-document.getElementById("most_watched_time_1").innerHTML = stats["most_watched"][2]["time"];
+document.getElementById("most_watched_img_2").innerHTML = stats["most_watched"][1]["img"];
+document.getElementById("most_watched_title_2").innerHTML = stats["most_watched"][1]["title"];
+document.getElementById("most_watched_time_2").innerHTML = stats["most_watched"][1]["time"];
+document.getElementById("most_watched_img_3").innerHTML = stats["most_watched"][2]["img"];
+document.getElementById("most_watched_title_3").innerHTML = stats["most_watched"][2]["title"];
+document.getElementById("most_watched_time_3").innerHTML = stats["most_watched"][2]["time"];
+
+
+
+// First, Last, Year Ago Watched
+
+document.getElementById("first_watch_img").innerHTML = stats["first_watch"]["img"];
+document.getElementById("first_watch_title").innerHTML = stats["first_watch"]["title"];
+document.getElementById("first_watch_date").innerHTML = stats["first_watch"]["date"];
+document.getElementById("last_watch_img").innerHTML = stats["last_watch"]["img"];
+document.getElementById("last_watch_title").innerHTML = stats["last_watch"]["title"];
+document.getElementById("last_watch_date").innerHTML = stats["last_watch"]["date"];
+document.getElementById("year_ago_watch_img").innerHTML = stats["year_ago_watch"]["img"];
+document.getElementById("year_ago_watch_title").innerHTML = stats["year_ago_watch"]["title"];
+document.getElementById("year_ago_watch_date").innerHTML = stats["year_ago_watch"]["date"];
