@@ -12,7 +12,7 @@ let stats = {
     "first_show_watched": "",
     "time_watched_per_year": [0],
     "year_labels": [],
-    "time_watched_of_each_show": {}, // {"Media Name": 0 (time watched)}
+    "media_watch_data": {}, // {"title": {"time_min": 12, "img": "https:///imglink"}, ...}
     "most_watched": [], //[{"title": "breaking bad", "time": 12h, "img": "https:///imglink"}, ...]
 };
 
@@ -128,6 +128,32 @@ function createStats() {
     // Time Watched per Year
     stats["year_labels"] = createYearLabels(2010);
 
+
+    // Most Watched
+    let temp_arr = [];
+
+    console.log(stats["media_watch_data"])
+
+    for (let i = 0; i < Object.keys(stats["media_watch_data"]).length; i++) {
+        temp_arr.push([Object.keys(stats["media_watch_data"])[i], stats["media_watch_data"][Object.keys(stats["media_watch_data"])[i]]["time_min"]]);
+    }
+
+    console.log(temp_arr)
+
+    temp_arr.sort(function(a, b) {
+        return a[1] - b[1];
+    });
+
+    console.log(temp_arr)
+
+    for(let i = 0; i < 3; i++){
+        stats["most_watched"].push({"title": temp_arr[2-i][0], "time": minutesToString(temp_arr[2-i][1]), "img": stats["media_watch_data"][temp_arr[2-i][0]]["img"]});
+        // stats["most_watched"].push({"title": temp_arr[i][0], "time": temp_arr[i][0], "img": stats["media_watch_data"][temp_arr[i][0]]["time_min"]});
+    }
+
+    console.log(stats["most_watched"])
+
+
     // console.log(stats);
     // console.log(stats["number_of_movies_watched"]);
     // console.log(stats["total_time_watched_min"]);
@@ -175,6 +201,7 @@ function processData(watch_data_json) {
                 // console.log(response_json["results"][0]["id"])
                 m["media_type"] = response_json["results"][0]["media_type"];
                 // console.log(response_json["results"][0]["media_type"])
+                m["cover"] = "https://image.tmdb.org/t/p/w500" + response_json["poster_path"];
 
                 // get runtime
                 if (m["media_type"] == "tv") {
@@ -220,10 +247,13 @@ function processData(watch_data_json) {
                 stats["total_time_watched_min"] += m["runtime"];
 
                 // time spent watching each movie/tv show
-                if (m["title"] in stats["time_watched_of_each_show"]) {
-                    stats["time_watched_of_each_show"][m["title"]] += m["runtime"];
+                if (m["title"] in stats["media_watch_data"]) {
+                    stats["media_watch_data"][m["title"]]["time_min"] += m["runtime"];
                 } else {
-                    stats["time_watched_of_each_show"][m["title"]] = m["runtime"];
+                    stats["media_watch_data"][m["title"]] = {
+                        "time_min": m["runtime"],
+                        "img": m["cover"],
+                    }
                 }
 
                 // first media watched
@@ -262,7 +292,9 @@ function processData(watch_data_json) {
         createStats()
         createCookies() /// create cookies
 
-        window.location.href = "data.html" // redirect!!! to data page
+        console.log(stats);
+
+        // window.location.href = "data.html" // redirect!!! to data page
     }
 
     function checkIfDone() {

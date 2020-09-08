@@ -80,3 +80,12 @@ document.getElementById("number_of_tvepisodes_watched").innerHTML = stats["numbe
 
 // Most Watched
 
+document.getElementById("most_watched_img_1").innerHTML = stats["most_watched"][0]["img"];
+document.getElementById("most_watched_title_1").innerHTML = stats["most_watched"][0]["title"];
+document.getElementById("most_watched_time_1").innerHTML = stats["most_watched"][0]["time"];
+document.getElementById("most_watched_img_1").innerHTML = stats["most_watched"][1]["img"];
+document.getElementById("most_watched_title_1").innerHTML = stats["most_watched"][1]["title"];
+document.getElementById("most_watched_time_1").innerHTML = stats["most_watched"][1]["time"];
+document.getElementById("most_watched_img_1").innerHTML = stats["most_watched"][2]["img"];
+document.getElementById("most_watched_title_1").innerHTML = stats["most_watched"][2]["title"];
+document.getElementById("most_watched_time_1").innerHTML = stats["most_watched"][2]["time"];
