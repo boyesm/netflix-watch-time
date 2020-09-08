@@ -287,14 +287,12 @@ function processData(watch_data_json) {
     function completedFetch() {
         console.log("ALL FETCH REQS HAVE CONCLUDED!!!")
 
-        // console.log(stats)
-
         createStats()
         createCookies() /// create cookies
 
         console.log(stats);
 
-        // window.location.href = "data.html" // redirect!!! to data page
+        window.location.href = "data.html" // redirect!!! to data page
     }
 
     function checkIfDone() {
