@@ -1,7 +1,4 @@
-
-
 const tmdb_api_key = '237f6b5d8de5e8cd30158e7ca0215232';
-
 
 // get csv file
 
@@ -46,8 +43,8 @@ function fetch_watch_data(watch_data_json){
         let movie_stats = [];
         let prom_array = [];
     
-        // for (let i = 0; i < watch_data_json.length; i++) {
-        for (let i = 0; i < 3; i++) {
+        for (let i = 0; i < watch_data_json.length; i++) {
+        // for (let i = 0; i < 3; i++) {
             
             let title = watch_data_json[i]["Title"].split(": ")[0];
     
@@ -180,6 +177,7 @@ function minutesToString(minutes) {
 
 async function main(){
 
+    console.log("thisi s running")
 
     document.getElementById("loading").style.display = "block";
     const watch_data_json = await convert_csv_to_json(uploadedFile);
@@ -205,6 +203,6 @@ async function main(){
     
     
     // redirect
-    // window.location.href = "./data.html"
+    window.location.href = "./data.html"
 
 }
