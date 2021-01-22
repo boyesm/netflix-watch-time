@@ -20,6 +20,7 @@ fileSelector.addEventListener('change', function () {
 
 // convert to json
 function convert_csv_to_json(csv) {
+    
     return new Promise((resolve) => {
         var lines = csv.split("\n");
         var result = [];
@@ -36,6 +37,14 @@ function convert_csv_to_json(csv) {
     })
 }
 
+function sleep(milliseconds) {
+    const date = Date.now();
+    let currentDate = null;
+    do {
+      currentDate = Date.now();
+    } while (currentDate - date < milliseconds);
+}
+
 // collect movie data
 function fetch_watch_data(watch_data_json){
     return new Promise((resolve, reject) => {
@@ -44,7 +53,6 @@ function fetch_watch_data(watch_data_json){
         let prom_array = [];
     
         for (let i = 0; i < watch_data_json.length; i++) {
-        // for (let i = 0; i < 3; i++) {
             
             let title = watch_data_json[i]["Title"].split(": ")[0];
     
@@ -107,7 +115,10 @@ function fetch_watch_data(watch_data_json){
                 .then(movie_stats.push(m))
                 .then(console.log("done"))
             
-            prom_array.push(prom)
+            prom_array.push(prom);
+
+            sleep(10);
+
         }
     
         Promise.allSettled(prom_array).then(() => {
@@ -125,6 +136,8 @@ async function calc_time_watched(movie_stats){
     for (let i = 0; i < movie_stats.length; i++) {
 
         time_watched += movie_stats[i]["runtime"];
+
+        sleep(10)
 
     }
 
@@ -144,6 +157,7 @@ async function calc_titles_watched(movie_stats){
         else if (movie_stats[i]["media_type"] == "tv"){
             episodes_watched += 1;
         }
+        sleep(10)
     }
 
     return [titles_watched, movies_watched, episodes_watched];
@@ -175,11 +189,20 @@ function minutesToString(minutes) {
     return out;
 }
 
+function main2(){
+    document.getElementById("loading").style.display = "block";
+    
+    setTimeout(() => {
+        main();
+    }, 1000);
+}
+
 async function main(){
 
-    console.log("thisi s running")
+    console.log("HERE!")
 
-    document.getElementById("loading").style.display = "block";
+    // sleep(10);
+
     const watch_data_json = await convert_csv_to_json(uploadedFile);
     const movie_stats = await fetch_watch_data(watch_data_json);
     await new Promise((resolve, reject) => {
