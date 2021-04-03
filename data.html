@@ -6,278 +6,98 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
   <link rel="stylesheet" href="static/css/bootstrap.css">
 
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-F2XL6SMS00"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'G-TQL50L4TYX');
+  </script>
+
   <title>Netflix Watch Time</title>
 </head>
 
 <body>
-  <div class="jumbotron">
+  <!-- <div class="jumbotron">
     <h1>YOUR DATA</h1>
-  </div>
-
-  <div class="container">
-
-    <!-- time stats -->
-
-    <div class="row mt-5 mb-2">
-      <div class="col mb-2">
-        <div class="card">
-          <div class="card-body">
-            <h1 class="card-title">Total Time Watched</h1>
-            <h3 class="card-text" id="total_time_watched"></h3>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- <div class="row">
-      <div class="col">
-        <center>
-          <h5>Time Watched per Year</h5>
-        </center>
-        <div class="chart-container" style="position: relative">
-          <canvas id="time_watched_per_year_graph" width="1px" height="1px"></canvas>
-        </div>
-      </div>
-      <div class="col">
-        <center>
-          <h5>Time Watched YTD per Month</h5>
-        </center>
-        <div class="chart-container" style="position: relative">
-          <canvas id="myChart1" width="1px" height="1px"></canvas>
-        </div>
-      </div>
-    </div>
-
-    <div class="row">
-      <div class="col">
-        <center>
-          <h5>Average Time Watched per Day of the Week</h5>
-        </center>
-        <div class="chart-container" style="position: relative">
-          <canvas id="average_time_watched_per_day_graph" width="1px" height="1px"></canvas>
-        </div>
-      </div>
-    </div> -->
-
-    <div class="row mt-2 mb-5">
-      <div class="col mb-2">
-        <div class="card">
-          <div class="card-body">
-            <h5 class="card-title">Total Titles Watched</h5>
-            <p class="card-text" id="number_of_titles_watched"></p>
-          </div>
-        </div>
-      </div>
-      <div class="col mb-2">
-        <div class="card">
-          <div class="card-body">
-            <h5 class="card-title">Total TV Episodes Watched</h5>
-            <p class="card-text" id="number_of_tvepisodes_watched"></p>
-          </div>
-        </div>
-      </div>
-      <div class="col mb-2">
-        <div class="card">
-          <div class="card-body">
-            <h5 class="card-title">Total Movies Watched</h5>
-            <p class="card-text" id="number_of_movies_watched"></p>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- memories stats -->
-
-    <!-- <div class="row mt-2 mb-2">
-      <div class="col mb-2">
-        <div class="card">
-          <div class="card-body">
-            <h1 class="card-title">Most Watched</h1>
-            <ul class="list-group list-group-flush">
-              <li class="list-group-item">
-                <div class="media">
-                  <img id="most_watched_img_1" src="..." class="mr-3" style="height:200px;">
-                  <div class="media-body">
-                    <h2 id="most_watched_title_1" class="mt-0">Breaking Bad</h2>
-                    <h5 id="most_watched_time_1" >12 hours</h5>
-                  </div>
-                </div>
-              </li>
-              <li class="list-group-item">
-                <div class="media">
-                  <img id="most_watched_img_2" src="..." class="mr-3" style="height:200px;">
-                  <div class="media-body">
-                    <h2 id="most_watched_title_2" class="mt-0">Breaking Bad</h2>
-                    <h5 id="most_watched_time_2">12 hours</h5>
-                  </div>
-                </div>
-              </li>
-              <li class="list-group-item">
-                <div class="media">
-                  <img id="most_watched_img_3" src="..." class="mr-3" style="height:200px;">
-                  <div class="media-body">
-                    <h2 id="most_watched_title_3" class="mt-0">Breaking Bad</h2>
-                    <h5 id="most_watched_time_3">12 hours</h5>
-                  </div>
-                </div>
-              </li>
-            </ul>
-          </div>
-        </div>
-      </div>
-    </div> -->
-
-    <!-- <div class="row mt-2 mb-2">
-      <div class="col mb-2">
-        <div class="card">
-          <div class="card-body">
-            <h4 class="card-title">First Watch</h4>
-            <img id="first_watch_img" src="https://image.tmdb.org/t/p/w500/2uNW4WbgBXL25BAbXGLnLqX71Sw.jpg" class="mr-3 mb-3" style="height:150px;">
-            <h6 class="card-text" id="first_watch_title">Family Guy</h6>
-            <p class="card-text" id="first_watch_date">March 12, 2019</p>
-          </div>
-        </div>
-      </div><div class="col mb-2">
-        <div class="card">
-          <div class="card-body">
-            <h4 class="card-title">Recently Watched</h4>
-            <img id="last_watch_img" src="https://image.tmdb.org/t/p/w500/2uNW4WbgBXL25BAbXGLnLqX71Sw.jpg" class="mr-3 mb-3" style="height:150px;">
-            <h6 class="card-text" id="last_watch_title">Family Guy</h6>
-            <p class="card-text" id="last_watch_date">March 12, 2019</p>
-          </div>
-        </div>
-      </div><div class="col mb-2">
-        <div class="card">
-          <div class="card-body">
-            <h4 class="card-title">Year Ago</h4>
-            <img id="year_ago_watch_img" src="https://image.tmdb.org/t/p/w500/2uNW4WbgBXL25BAbXGLnLqX71Sw.jpg" class="mr-3 mb-3" style="height:150px;">
-            <h6 class="card-text" id="year_ago_watch_title">Family Guy</h6>
-            <p class="card-text" id="year_ago_watch_date">March 12, 2019</p>
-          </div>
-        </div>
-      </div>
-    </div> -->
-
-    <!-- favorite stats -->
-
-    <!-- <div class="row mt-2 mb-2">
-      <div class="col mb-2">
-        <div class="card">
-          <div class="card-body">
-            <h5 class="card-title">Favorite Actor</h5>
-            <p class="card-text" id="stat1"></p>
-          </div>
-        </div>
-      </div>
-      <div class="col mb-2">
-        <div class="card">
-          <div class="card-body">
-            <h5 class="card-title">Favorite Director</h5>
-            <p class="card-text" id="stat1"></p>
-          </div>
-        </div>
-      </div>
-    </div> -->
-
-    <!-- <div class="row mt-5 mb-5">
-    <div class="col">
-      <center>
-        <h3>Time Watched per Year</h3>
-      </center>
-      <div class="chart-container" style="position: relative">
-        <canvas id="myChart" width="1px" height="1px"></canvas>
-      </div>
-    </div>
-    <div class="col">
-      <center>
-        <h3>Time Watched per Month</h3>
-      </center>
-      <div class="chart-container" style="position: relative">
-        <canvas id="myChart1" width="1px" height="1px"></canvas>
-      </div>
-    </div>
   </div> -->
 
-    <!-- <h1>Netflix Favourites</h1>
-<div class="row mt-5 mb-5">
-  <div class="col">
-    <div class="card" style="width: 18rem;">
-      <img src="..." class="card-img-top" alt="...">
-      <div class="card-body">
-        <h5 class="card-title">First Time Watched</h5>
-        <p class="card-text">{{ first_time_watched_stat }}</p>
-      </div>
-    </div>
-  </div>
-  <div class="col">
-    <div class="card" style="width: 18rem;">
-      <img src="..." class="card-img-top" alt="...">
-      <div class="card-body">
-        <h5 class="card-title">Fastest Time to Finish a TV Series</h5>
-        <p class="card-text">{{ first_time_watched_stat }}</p>
-      </div>
-    </div>
-  </div>
-  <div class="col">
-    <div class="card" style="width: 18rem;">
-      <img src="..." class="card-img-top" alt="...">
-      <div class="card-body">
-        <h5 class="card-title">Most Watched TV Show</h5>
-        <p class="card-text">{{ most_watched_tv_stat }}</p>
-      </div>
-    </div>
-  </div>
-</div>
-<div class="row mt-5 mb-5">
-  <div class="col">
-    <div class="card" style="width: 18rem;">
-      <img src="..." class="card-img-top" alt="...">
-      <div class="card-body">
-        <h5 class="card-title">Most Watched Actor</h5>
-        <p class="card-text">{{ most_watched_actor_stat }}</p>
-      </div>
-    </div>
-  </div>
-  <div class="col">
-    <div class="card" style="width: 18rem;">
-      <img src="..." class="card-img-top" alt="...">
-      <div class="card-body">
-        <h5 class="card-title">Most Watched Director</h5>
-        <p class="card-text">{{ most_watched_director_stat }}</p>
-      </div>
-    </div>
-  </div>
-  <div class="col">
-    <div class="card" style="width: 18rem;">
-      <img src="..." class="card-img-top" alt="...">
-      <div class="card-body">
-        <h5 class="card-title">Most Watched TV Show</h5>
-        <p class="card-text">78 Hours</p>
-      </div>
-    </div>
-  </div>
-</div>
-<div class="row mt-5 mb-5">
-  <div class="col">
-    <center>
-      <h3>Most Watched Films</h3>
-    </center>
-    <div class="chart-container" style="position: relative">
-      <canvas id="myChart" width="1px" height="1px"></canvas>
-    </div>
-  </div>
-  <div class="col">
-    <center>
-      <h3>Most Watched TV</h3>
-    </center>
-    <div class="chart-container" style="position: relative">
-      <canvas id="myChart1" width="1px" height="1px"></canvas>
-    </div>
-  </div>
-</div> -->
+  <style>
+    body{
+      background-color: black;
+    }
+    .center {
+      margin: 0;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      -ms-transform: translate(-50%, -50%);
+      transform: translate(-50%, -50%);
+    }
+    .title1{
+      color: white;
+    }
+    .sub1{
+      color: grey;
+      animation: fadein 2s;
+      -moz-animation: fadein 2s; /* Firefox */
+      -webkit-animation: fadein 2s; /* Safari and Chrome */
+      -o-animation: fadein 2s; /* Opera */
+    }
+    h1{
+      font-size: 2em;
+    }
 
+    #test p {
+    margin-top: 25px;
+    font-size: 21px;
+    text-align: center;
+    animation: fadein 2s;
+    -moz-animation: fadein 2s; /* Firefox */
+    -webkit-animation: fadein 2s; /* Safari and Chrome */
+    -o-animation: fadein 2s; /* Opera */
+    }
+    @keyframes fadein {
+        from {
+            opacity:0;
+        }
+        to {
+            opacity:1;
+        }
+    }
+    @-moz-keyframes fadein { /* Firefox */
+        from {
+            opacity:0;
+        }
+        to {
+            opacity:1;
+        }
+    }
+    @-webkit-keyframes fadein { /* Safari and Chrome */
+        from {
+            opacity:0;
+        }
+        to {
+            opacity:1;
+        }
+    }
+    @-o-keyframes fadein { /* Opera */
+        from {
+            opacity:0;
+        }
+        to {
+            opacity: 1;
+        }
+    }
+  </style>
 
-  </div>
+  <!-- back button -->
+
+  <div class="center">
+    <h1 class="title1">You've watched...</h1>
+    <h2 class="sub1" id="total_time_watched"></h1>
+  </div>  
 
   <!-- <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.3/dist/Chart.min.js"></script> -->
   <script src="static/js/data.js"></script>

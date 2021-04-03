@@ -20,7 +20,6 @@ fileSelector.addEventListener('change', function () {
 
 // convert to json
 function convert_csv_to_json(csv) {
-    
     return new Promise((resolve) => {
         var lines = csv.split("\n");
         var result = [];
@@ -59,10 +58,10 @@ function fetch_watch_data(watch_data_json){
             let m = {
                 "title": title,
                 "id": 0,
-                "release_date": "",
+                // "release_date": "",
                 "media_type": "",
                 "runtime": 0,
-                "cover": "",
+                // "cover": "",
             }
     
             let prom = fetch(`https://api.themoviedb.org/3/search/multi?api_key=${tmdb_api_key}&language=en-US&query=${title}&page=1&include_adult=false`)
@@ -75,10 +74,10 @@ function fetch_watch_data(watch_data_json){
                     // console.log(response_json["results"][0]["id"])
                     m["media_type"] = response_json["results"][0]["media_type"];
                     // console.log(response_json["results"][0]["media_type"])
-                    m["cover"] = "https://image.tmdb.org/t/p/w500" + response_json["poster_path"];
+                    // m["cover"] = "https://image.tmdb.org/t/p/w500" + response_json["poster_path"];
     
                     // get runtime
-                    if (m["media_type"] == "tv") {
+                    if (m["media_type"] == "tv") { // maybe skip duplicate tv shows? speed things up
                         return fetch(`https://api.themoviedb.org/3/tv/${m['id']}?api_key=${tmdb_api_key}&language=en-US`)
                     }
                     else if (m["media_type"] == "movie") {
@@ -117,7 +116,7 @@ function fetch_watch_data(watch_data_json){
             
             prom_array.push(prom);
 
-            sleep(10);
+            sleep(1000);
 
         }
     
@@ -142,6 +141,13 @@ async function calc_time_watched(movie_stats){
     }
 
     return time_watched;
+}
+
+async function calc_time_watched2(watch_data_json){
+
+    let watch_time = watch_data_json.length * 37;
+
+    return watch_time;
 }
 
 async function calc_titles_watched(movie_stats){
@@ -199,28 +205,37 @@ function main2(){
 
 async function main(){
 
-    console.log("HERE!")
-
-    // sleep(10);
+    console.log("HERE!");
 
     const watch_data_json = await convert_csv_to_json(uploadedFile);
-    const movie_stats = await fetch_watch_data(watch_data_json);
+    // const movie_stats = await fetch_watch_data(watch_data_json);
     await new Promise((resolve, reject) => {
-        let stat1 = calc_time_watched(movie_stats)
+        // let stat1 = calc_time_watched(movie_stats)
+        //     .then(stat => minutesToString(stat))
+        //     .then(stat => localStorage.setItem("total_watch_time", stat))
+
+        let stat1 = calc_time_watched2(watch_data_json)
             .then(stat => minutesToString(stat))
             .then(stat => localStorage.setItem("total_watch_time", stat))
+        
 
-        let stat2 = calc_titles_watched(movie_stats)
-            .then(out => {
-                localStorage.setItem("titles_watched", out[0]);
-                localStorage.setItem("movies_watched", out[1]);
-                localStorage.setItem("episodes_watched", out[2]);
-            })
+        // let stat2 = calc_titles_watched(movie_stats)
+        //     .then(out => {
+        //         localStorage.setItem("titles_watched", out[0]);
+        //         localStorage.setItem("movies_watched", out[1]);
+        //         localStorage.setItem("episodes_watched", out[2]);
+        //     })
 
-        Promise.allSettled([stat1, stat2]).then(() => {
+        Promise.allSettled([stat1]).then(() => {
             resolve();
         })
+
+        // Promise.allSettled([stat1, stat2]).then(() => {
+        //     resolve();
+        // })
     })
+
+
 
     document.getElementById("loading").style.display = "none";
     
