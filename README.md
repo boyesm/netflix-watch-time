@@ -10,4 +10,4 @@ Built around a neat feature that Netflix implemented that allows users to export
 
 Try it out for yourself here:
 
-https://boyesm.github.io/netflix-watch-time/
+netflix-watch-time.netlify.app
