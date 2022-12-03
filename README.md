@@ -8,6 +8,4 @@ Built around a neat feature that Netflix implemented that allows users to export
 
 ## Live Site
 
-Try it out for yourself here:
-
-[netflix-watch-time.netlify.app](https://netflix-watch-time.netlify.app)
+[Try it out for yourself here](https://netflix-watch-time.netlify.app)
