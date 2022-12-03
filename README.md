@@ -10,4 +10,4 @@ Built around a neat feature that Netflix implemented that allows users to export
 
 Try it out for yourself here:
 
-netflix-watch-time.netlify.app
+[https://netflix-watch-time.netlify.app](netflix-watch-time.netlify.app)
